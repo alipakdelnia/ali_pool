@@ -1,7 +1,7 @@
-package com.example.ali_pool
+package com.example.ali_pool.apiManager
 
 
-import com.example.ali_pool.model.User
+import com.example.ali_pool.apiManager.model.User
 import retrofit2.Call
 import retrofit2.http.GET
 
