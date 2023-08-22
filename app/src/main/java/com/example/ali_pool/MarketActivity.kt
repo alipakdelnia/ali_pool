@@ -3,20 +3,12 @@ package com.example.ali_pool
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
-import android.widget.Toast
 import com.example.ali_pool.apiManager.ApiManager
-import com.example.ali_pool.apiManager.ApiSecvice
 import com.example.ali_pool.databinding.ActivityMainBinding
 import com.example.ali_pool.apiManager.model.User
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
-import retrofit2.Retrofit
-import retrofit2.converter.gson.GsonConverterFactory
 
 
-
-class MainActivity : AppCompatActivity() {
+class MarketActivity : AppCompatActivity() {
     lateinit var binding: ActivityMainBinding
     val apiManager = ApiManager()
     override fun onCreate(savedInstanceState: Bundle?) {
