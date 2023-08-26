@@ -29,4 +29,6 @@
     <color name="cerise">#da0e86</color>
 
     <color name="bubble_gum_pink">#ff5ba4</color>
+
+    <color name="red_error">#A31010</color>
 </resources>

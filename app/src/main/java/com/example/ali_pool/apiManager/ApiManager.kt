@@ -8,7 +8,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 const val base_url = "https://jsonplaceholder.typicode.com/"
 
 class ApiManager {
-    private val apiSecvice: ApiSecvice
+    private val apiSecvice: ApiService
 
     init {
 
@@ -28,7 +28,7 @@ class ApiManager {
             .addConverterFactory(GsonConverterFactory.create())
             .build()
 
-        apiSecvice = retrofit.create(ApiSecvice::class.java)
+        apiSecvice = retrofit.create(ApiService::class.java)
 
         // apiService.getUser(20) working with path
         // apiService.getUsersSorted("desc") working with Query Param
