@@ -5,7 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".coinActivity">
+    tools:context=".features.coinActivity">
 
     <include
         android:id="@+id/layout_toolbar"

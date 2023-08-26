@@ -15,10 +15,10 @@
         android:theme="@style/Theme.Ali_pool"
         tools:targetApi="31">
         <activity
-            android:name=".coinActivity"
+            android:name=".features.coinActivity"
             android:exported="false" />
         <activity
-            android:name=".MarketActivity"
+            android:name=".features.MarketActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
