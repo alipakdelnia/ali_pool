@@ -12,7 +12,7 @@ interface ApiService {
 
     @Headers(API_KEY)
     @GET ("v2/news/")
-    fun gerTopNews (
+    fun getTopNews (
         @Query ("sortOrder") sortOrder : String = "popular"
     ): Call<NewsData>
 
