@@ -106,8 +106,6 @@ data class CoinsInfo(
                 val cIRCULATINGSUPPLYMKTCAP: String,
                 @SerializedName("CONVERSIONLASTUPDATE")
                 val cONVERSIONLASTUPDATE: String,
-                @SerializedName("CONVERSIONSYMBOL")
-                val cONVERSIONSYMBOL: String,
                 @SerializedName("CONVERSIONTYPE")
                 val cONVERSIONTYPE: String,
                 @SerializedName("FROMSYMBOL")
