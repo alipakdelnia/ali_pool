@@ -5,7 +5,8 @@ import android.os.Parcelable
 import com.google.gson.annotations.SerializedName
 import kotlinx.parcelize.Parcelize
 
-data class CoinsData(
+@Parcelize
+data class CoinsInfo(
     @SerializedName("Data")
     val `data`: List<Data>,
     @SerializedName("HasWarning")
@@ -16,26 +17,18 @@ data class CoinsData(
     val metaData: MetaData,
     @SerializedName("RateLimit")
     val rateLimit: RateLimit,
-    @SerializedName("SponsoredData")
-    val sponsoredData: List<Any>,
     @SerializedName("Type")
     val type: Int
-) {
-
+) : Parcelable {
     @Parcelize
     data class Data(
-
         @SerializedName("CoinInfo")
         val coinInfo: CoinInfo,
-
         @SerializedName("DISPLAY")
         val dISPLAY: DISPLAY,
-
         @SerializedName("RAW")
         val rAW: RAW
-
-    ) :Parcelable  {
-
+    ) : Parcelable {
         @Parcelize
         data class CoinInfo(
             @SerializedName("Algorithm")
@@ -46,7 +39,8 @@ data class CoinsData(
             val blockNumber: Int,
             @SerializedName("BlockReward")
             val blockReward: Double,
-
+            @SerializedName("BlockTime")
+            val blockTime: Int,
             @SerializedName("DocumentType")
             val documentType: String,
             @SerializedName("FullName")
@@ -61,7 +55,6 @@ data class CoinsData(
             val maxSupply: Double,
             @SerializedName("Name")
             val name: String,
-
             @SerializedName("ProofType")
             val proofType: String,
             @SerializedName("Rating")
@@ -70,14 +63,12 @@ data class CoinsData(
             val type: Int,
             @SerializedName("Url")
             val url: String
-        ) :Parcelable {
-
+        ) : Parcelable {
             @Parcelize
             data class Rating(
                 @SerializedName("Weiss")
                 val weiss: Weiss
-            ) :Parcelable {
-
+            ) : Parcelable {
                 @Parcelize
                 data class Weiss(
                     @SerializedName("MarketPerformanceRating")
@@ -86,7 +77,7 @@ data class CoinsData(
                     val rating: String,
                     @SerializedName("TechnologyAdoptionRating")
                     val technologyAdoptionRating: String
-                ) :Parcelable
+                ) : Parcelable
             }
         }
 
@@ -94,8 +85,7 @@ data class CoinsData(
         data class DISPLAY(
             @SerializedName("USD")
             val uSD: USD
-        ) :Parcelable {
-
+        ) : Parcelable {
             @Parcelize
             data class USD(
                 @SerializedName("CHANGE24HOUR")
@@ -110,8 +100,12 @@ data class CoinsData(
                 val cHANGEPCTDAY: String,
                 @SerializedName("CHANGEPCTHOUR")
                 val cHANGEPCTHOUR: String,
-
-
+                @SerializedName("CIRCULATINGSUPPLY")
+                val cIRCULATINGSUPPLY: String,
+                @SerializedName("CIRCULATINGSUPPLYMKTCAP")
+                val cIRCULATINGSUPPLYMKTCAP: String,
+                @SerializedName("CONVERSIONLASTUPDATE")
+                val cONVERSIONLASTUPDATE: String,
                 @SerializedName("CONVERSIONSYMBOL")
                 val cONVERSIONSYMBOL: String,
                 @SerializedName("CONVERSIONTYPE")
@@ -184,15 +178,14 @@ data class CoinsData(
                 val vOLUMEHOUR: String,
                 @SerializedName("VOLUMEHOURTO")
                 val vOLUMEHOURTO: String
-            ) :Parcelable
+            ) : Parcelable
         }
 
         @Parcelize
         data class RAW(
             @SerializedName("USD")
             val uSD: USD
-        ) :Parcelable {
-
+        ) : Parcelable {
             @Parcelize
             data class USD(
                 @SerializedName("CHANGE24HOUR")
@@ -207,8 +200,13 @@ data class CoinsData(
                 val cHANGEPCTDAY: Double,
                 @SerializedName("CHANGEPCTHOUR")
                 val cHANGEPCTHOUR: Double,
-
-
+                @SerializedName("CIRCULATINGSUPPLY")
+                val cIRCULATINGSUPPLY: Double,
+                @SerializedName("CIRCULATINGSUPPLYMKTCAP")
+                val cIRCULATINGSUPPLYMKTCAP: Double,
+                @SerializedName("CONVERSIONLASTUPDATE")
+                val cONVERSIONLASTUPDATE: Int,
+                @SerializedName("CONVERSIONSYMBOL")
                 val cONVERSIONSYMBOL: String,
                 @SerializedName("CONVERSIONTYPE")
                 val cONVERSIONTYPE: String,
@@ -242,10 +240,8 @@ data class CoinsData(
                 val lOWHOUR: Double,
                 @SerializedName("MARKET")
                 val mARKET: String,
-
                 @SerializedName("MEDIAN")
                 val mEDIAN: Double,
-
                 @SerializedName("MKTCAP")
                 val mKTCAP: Double,
                 @SerializedName("MKTCAPPENALTY")
@@ -258,10 +254,8 @@ data class CoinsData(
                 val oPENHOUR: Double,
                 @SerializedName("PRICE")
                 val pRICE: Double,
-
                 @SerializedName("SUPPLY")
                 val sUPPLY: Double,
-
                 @SerializedName("TOPTIERVOLUME24HOUR")
                 val tOPTIERVOLUME24HOUR: Double,
                 @SerializedName("TOPTIERVOLUME24HOURTO")
@@ -290,14 +284,16 @@ data class CoinsData(
                 val vOLUMEHOUR: Double,
                 @SerializedName("VOLUMEHOURTO")
                 val vOLUMEHOURTO: Double
-            ) :Parcelable
+            ) : Parcelable
         }
     }
 
+    @Parcelize
     data class MetaData(
         @SerializedName("Count")
         val count: Int
-    )
+    ) : Parcelable
 
-    class RateLimit
+    @Parcelize
+    class RateLimit : Parcelable
 }

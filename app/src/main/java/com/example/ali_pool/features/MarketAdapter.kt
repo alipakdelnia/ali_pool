@@ -23,7 +23,7 @@ class MarketAdapter(
             @SuppressLint("SetTextI18n")
             fun bindViews(dataCoin: CoinsInfo.Data){
 
-                binding.txtCoinName.text = dataCoin.coinInfo.name +" / "
+                binding.txtCoinName.text = dataCoin.coinInfo.fullName
                 binding.txtCoinPrice.text = "$"+dataCoin.rAW.uSD.pRICE.toString()
 
                 val change = dataCoin.rAW.uSD.cHANGEPCT24HOUR

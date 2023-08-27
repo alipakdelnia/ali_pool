@@ -3,8 +3,6 @@ package com.example.ali_pool.features
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
-import android.os.Handler
-import android.os.Looper
 import android.util.Log
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -12,7 +10,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.ali_pool.apiManager.ApiManager
 import com.example.ali_pool.apiManager.model.CoinsInfo
 import com.example.ali_pool.databinding.ActivityMarketBinding
-
+import com.example.ali_pool.features.coinActivity
 
 class MarketActivity : AppCompatActivity() , MarketAdapter.RecyclerCallback {
     lateinit var binding: ActivityMarketBinding
@@ -34,9 +32,8 @@ class MarketActivity : AppCompatActivity() , MarketAdapter.RecyclerCallback {
 
             initUi ()
 
-            Handler(Looper.getMainLooper()).postDelayed({
                 binding.swipeRefreshMain.isRefreshing = false
-            },1000)
+
         }
     }
 
@@ -116,7 +113,7 @@ class MarketActivity : AppCompatActivity() , MarketAdapter.RecyclerCallback {
     }
 
     override fun onCoinItemClicked(dataCoin: CoinsInfo.Data) {
-        val intent = Intent(this,coinActivity::class.java)
+        val intent = Intent(this, coinActivity::class.java)
         intent.putExtra("dataToSend",dataCoin)
         startActivity(intent)
     }
