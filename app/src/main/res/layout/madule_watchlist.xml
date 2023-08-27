@@ -11,7 +11,7 @@
     android:layout_height="wrap_content">
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyclerView"
+        android:id="@+id/recyclerViewMain"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         tools:itemCount="10"
@@ -28,15 +28,15 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/recyclerView" />
+        app:layout_constraintTop_toBottomOf="@+id/recyclerViewMain" />
 
     <com.google.android.material.button.MaterialButton
+        android:id="@+id/bt_showMore"
+        style="@style/Widget.MaterialComponents.Button.TextButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="more"
-        style="@style/Widget.MaterialComponents.Button.TextButton"
         android:textColor="@color/primaryTextColor"
-        android:layout_marginBottom="16dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/view" />
 

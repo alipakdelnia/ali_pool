@@ -1,8 +1,13 @@
 package com.example.ali_pool.apiManager
 
 
+import android.util.Log
+import com.example.ali_pool.apiManager.model.CoinsInfo
 import com.example.ali_pool.apiManager.model.NewsData
-import retrofit2.*
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
+import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
 const val BASE_URL = "https://min-api.cryptocompare.com/data/"
@@ -44,10 +49,25 @@ class ApiManager {
         })
     }
 
+    fun getCoinsList (apiCallback: ApiCallback<List<CoinsInfo.Data>>){
+        apiService.getCoinsInfo().enqueue(object : Callback<CoinsInfo>{
+            override fun onResponse(call: Call<CoinsInfo>, response: Response<CoinsInfo>) {
+                val data = response.body()!!
+                apiCallback.onSuccess(data.data)
+            }
+
+            override fun onFailure(call: Call<CoinsInfo>, t: Throwable) {
+                apiCallback.onError(t.message!!)
+                Log.v("apiMessage",t.message!!)
+            }
+
+        })
+
+    }
+
     interface ApiCallback<T> {
 
         fun onSuccess(data: T)
-
         fun onError(errorMessager: String)
 
     }
