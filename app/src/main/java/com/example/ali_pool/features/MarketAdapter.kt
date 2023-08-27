@@ -23,23 +23,53 @@ class MarketAdapter(
             @SuppressLint("SetTextI18n")
             fun bindViews(dataCoin: CoinsInfo.Data){
 
-                binding.txtCoinName.text = dataCoin.coinInfo.fullName
-                binding.txtCoinPrice.text = "$"+dataCoin.rAW.uSD.pRICE.toString()
+                binding.txtCoinName.text = dataCoin.coinInfo.name+" / "
+
+
+                val indexDotPrice = dataCoin.rAW.uSD.pRICE.toString().indexOf('.')
+                if (dataCoin.rAW.uSD.pRICE.toString().length >= indexDotPrice+6) {
+                    binding.txtCoinPrice.text = "$"+dataCoin.rAW.uSD.pRICE.toString().substring(0, indexDotPrice + 3)
+                }else{
+                    binding.txtCoinPrice.text = "$"+dataCoin.rAW.uSD.pRICE.toString()
+                }
 
                 val change = dataCoin.rAW.uSD.cHANGEPCT24HOUR
-                if (change > 0 ){
-                    binding.txtCoinChange.setTextColor(ContextCompat.getColor(binding.root.context, R.color.colorGain))
-                    binding.txtCoinChange.text = dataCoin.rAW.uSD.cHANGEPCT24HOUR.toString().substring(0,4)+"%"
-            }else if (change<0){
-                    binding.txtCoinChange.setTextColor(ContextCompat.getColor(binding.root.context, R.color.colorLoss))
-                    binding.txtCoinChange.text = dataCoin.rAW.uSD.cHANGEPCT24HOUR.toString().substring(0,5)+"%"
-                }else {
-                    binding.txtCoinChange.text = "0%"
+                val changeString = dataCoin.rAW.uSD.cHANGEPCT24HOUR.toString()
+                if (changeString.length > 5) {
+                    if (change > 0) {
+                        binding.txtCoinChange.setTextColor(
+                            ContextCompat.getColor(
+                                binding.root.context,
+                                R.color.colorGain
+                            )
+                        )
+                        binding.txtCoinChange.text =
+                            dataCoin.rAW.uSD.cHANGEPCT24HOUR.toString().substring(0, 4) + "%"
+                    } else if (change < 0) {
+                        binding.txtCoinChange.setTextColor(
+                            ContextCompat.getColor(
+                                binding.root.context,
+                                R.color.colorLoss
+                            )
+                        )
+                        binding.txtCoinChange.text =
+                            dataCoin.rAW.uSD.cHANGEPCT24HOUR.toString().substring(0, 5) + "%"
+                    } else {
+                        binding.txtCoinChange.text = "0%"
+                    }
+                }else{
+                    binding.txtCoinChange.text =
+                        dataCoin.rAW.uSD.cHANGEPCT24HOUR.toString() + "%"
                 }
 
                 val marketCap = dataCoin.rAW.uSD.mKTCAP / 1000000000
                 val indexDot = marketCap.toString().indexOf('.')
-                binding.txtCoinCap.text = "$"+marketCap.toString().substring(0,indexDot+3)+" B"
+                if (marketCap.toString().length >= indexDot+6) {
+                    binding.txtCoinCap.text =
+                        "$" + marketCap.toString().substring(0, indexDot + 3) + " B"
+                }else{
+                    binding.txtCoinCap.text = "$" + marketCap.toString() + " B"
+                }
 
                 Glide
                     .with(itemView)
