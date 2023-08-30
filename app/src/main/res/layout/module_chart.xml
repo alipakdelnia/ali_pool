@@ -28,28 +28,31 @@
         app:layout_constraintTop_toTopOf="@+id/txt_chart_updown" />
 
     <TextView
-        android:layout_margin="4dp"
         android:id="@+id/txt_chart_updown"
         style="@style/CoinBitText.Body"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_margin="4dp"
         android:text="▲"
         android:textColor="@color/colorGain"
         app:layout_constraintStart_toStartOf="@+id/txt_chart_price"
         app:layout_constraintTop_toBottomOf="@+id/txt_chart_price" />
 
     <TextView
-        android:layout_marginStart="4dp"
-        android:layout_marginEnd="4dp"
         android:id="@+id/txt_chart_change1"
         style="@style/CoinBitText.BodyTertiary"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="4dp"
+        android:layout_marginEnd="4dp"
         android:text="-$0.04"
         app:layout_constraintStart_toEndOf="@+id/txt_chart_updown"
         app:layout_constraintTop_toTopOf="@+id/txt_chart_updown" />
 
     <com.robinhood.spark.SparkView
+        app:spark_scrubEnabled="true"
+        app:spark_lineColor="@color/colorPrimary"
+        app:spark_animateChanges="true"
         android:id="@+id/chart_sparkView"
         android:layout_width="match_parent"
         android:layout_height="160dp"
@@ -64,23 +67,24 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="load error"
-        android:visibility="gone"
         android:textColor="@color/red_error"
+        android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="@+id/chart_sparkView"
         app:layout_constraintEnd_toEndOf="@+id/chart_sparkView"
         app:layout_constraintStart_toStartOf="@+id/chart_sparkView"
         app:layout_constraintTop_toTopOf="@+id/chart_sparkView" />
 
     <RadioGroup
-android:weightSum="7"
-        android:padding="8dp"
-        android:orientation="horizontal"
-        android:gravity="center"
+        android:id="@+id/radio_group_main"
         android:layout_width="match_parent"
         android:layout_height="100dp"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:padding="8dp"
+        android:weightSum="7"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/chart_sparkView" >
+        app:layout_constraintTop_toBottomOf="@+id/chart_sparkView">
 
         <RadioButton
             android:id="@+id/rb_12h"
@@ -186,7 +190,6 @@ android:weightSum="7"
             android:textColor="@drawable/range_radio_btn_selector"
             android:textSize="14sp"
             android:textStyle="bold" />
-
 
 
     </RadioGroup>

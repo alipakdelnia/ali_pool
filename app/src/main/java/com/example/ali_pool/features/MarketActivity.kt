@@ -1,10 +1,14 @@
 package com.example.ali_pool.features
 
+import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.util.Log
 import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.ali_pool.apiManager.ApiManager
@@ -26,6 +30,8 @@ class MarketActivity : AppCompatActivity() , MarketAdapter.RecyclerCallback {
         setContentView(binding.root)
         binding.layoutToolbar.toolbar.title = "Market"
 
+        firstRunShowDialogWelcome()
+
         getAboutDataFromAssets()
 
         binding.layoutWatchlist.btShowMore.setOnClickListener {
@@ -37,8 +43,21 @@ class MarketActivity : AppCompatActivity() , MarketAdapter.RecyclerCallback {
 
             initUi ()
 
+            Handler(Looper.getMainLooper()).postDelayed({
                 binding.swipeRefreshMain.isRefreshing = false
+            },1500)
+        }
 
+    }
+
+    private fun firstRunShowDialogWelcome() {
+        val shared = getSharedPreferences("mainSharedPref.xml", Context.MODE_PRIVATE)
+        val isFirstRun = shared.getBoolean("isFirstRun", true)
+        if (isFirstRun) {
+            val dialog = AlertDialog.Builder(this)
+            dialog.setMessage("سلام من علی پاکدل نیا هستم. \nاین پروژه برای یادگیری کار با api انجام شده است و صرفا جنبه آموزشی دارد")
+            dialog.show()
+            shared.edit().putBoolean("isFirstRun" , false).apply()
         }
     }
 
