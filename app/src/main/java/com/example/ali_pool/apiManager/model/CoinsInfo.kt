@@ -39,8 +39,6 @@ data class CoinsInfo(
             val blockNumber: Int,
             @SerializedName("BlockReward")
             val blockReward: Double,
-            @SerializedName("BlockTime")
-            val blockTime: Int,
             @SerializedName("DocumentType")
             val documentType: String,
             @SerializedName("FullName")

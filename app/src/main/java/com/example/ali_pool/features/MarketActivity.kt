@@ -8,20 +8,25 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.ali_pool.apiManager.ApiManager
+import com.example.ali_pool.apiManager.model.CoinAboutData
+import com.example.ali_pool.apiManager.model.CoinAboutItem
 import com.example.ali_pool.apiManager.model.CoinsInfo
 import com.example.ali_pool.databinding.ActivityMarketBinding
-import com.example.ali_pool.features.coinActivity
+import com.google.gson.Gson
 
 class MarketActivity : AppCompatActivity() , MarketAdapter.RecyclerCallback {
     lateinit var binding: ActivityMarketBinding
-    val apiManager = ApiManager()
     lateinit var adapter: MarketAdapter
     lateinit var dataNews : ArrayList<Pair<String,String>>
+    lateinit var aboutDataMap : MutableMap<String,CoinAboutItem>
+    val apiManager = ApiManager()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMarketBinding.inflate(layoutInflater)
         setContentView(binding.root)
         binding.layoutToolbar.toolbar.title = "Market"
+
+        getAboutDataFromAssets()
 
         binding.layoutWatchlist.btShowMore.setOnClickListener {
             val intent = Intent(Intent.ACTION_VIEW , Uri.parse("https://www.livecoinwatch.com/"))
@@ -57,6 +62,30 @@ class MarketActivity : AppCompatActivity() , MarketAdapter.RecyclerCallback {
     private fun initUi() {
         getNewsFromApi()
         getTopCoinsFromApi()
+    }
+
+    private fun getAboutDataFromAssets() {
+
+        val fileInString = applicationContext.assets
+            .open("currencyinfo.json")
+            .bufferedReader()
+            .use { it.readText() }
+
+         aboutDataMap = mutableMapOf<String , CoinAboutItem>()
+
+        val gson = Gson()
+        val dataAboutAll = gson.fromJson(fileInString,CoinAboutData::class.java)
+
+        dataAboutAll.forEach {
+            aboutDataMap[it.currencyName] = CoinAboutItem(
+                it.info.web,
+                it.info.github,
+                it.info.twt,
+                it.info.desc,
+                it.info.reddit
+            )
+        }
+
     }
 
     private fun getTopCoinsFromApi() {
@@ -98,7 +127,6 @@ class MarketActivity : AppCompatActivity() , MarketAdapter.RecyclerCallback {
         })
 
     }
-
     private fun refreshNews() {
         val randomAccess = (0..49).random()
         binding.layoutNews.txtNews.text = dataNews[randomAccess].first
@@ -113,8 +141,15 @@ class MarketActivity : AppCompatActivity() , MarketAdapter.RecyclerCallback {
     }
 
     override fun onCoinItemClicked(dataCoin: CoinsInfo.Data) {
+
         val intent = Intent(this, coinActivity::class.java)
-        intent.putExtra("dataToSend",dataCoin)
+
+        val bundle = Bundle()
+        bundle.putParcelable("bundle1", dataCoin)
+        bundle.putParcelable("bundle2", aboutDataMap[dataCoin.coinInfo.name]!!)
+
+        intent.putExtra("dataToSend",bundle)
         startActivity(intent)
+
     }
 }
